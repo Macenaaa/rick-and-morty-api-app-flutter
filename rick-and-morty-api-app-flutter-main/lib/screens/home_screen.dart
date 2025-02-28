@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:rm_app/screens/detail_screen.dart';
 import 'package:rm_app/services/rm_api_service.dart';
 import '../models/character.dart';
 
@@ -40,27 +41,36 @@ class _HomeScreenState extends State<HomeScreen> {
               itemCount: characters.length,
               itemBuilder: (context, index) {
                 final character = characters[index];
-                return Card(
-                  margin:const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16)
-                  ),
-                  child: ListTile(
-                  leading: CachedNetworkImage (
-                    imageUrl:character.image, 
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                    placeholder:(context,url) =>
-                     const CircularProgressIndicator(),
-                    errorWidget: (context,url,error) =>
-                      const Icon(Icons.error),
-                    ),
-                  title: Text(character.name),
-                  subtitle: Text('Satus:${character.status}'),
-                )
-                );
+                return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              DetailScreen(),
+                        ),
+                      );
+                    },
+                    child: Card(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 8),
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16)),
+                        child: ListTile(
+                          leading: CachedNetworkImage(
+                            imageUrl: character.image,
+                            width: 50,
+                            height: 50,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) =>
+                                const CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
+                          ),
+                          title: Text(character.name),
+                          subtitle: Text('Satus:${character.status}'),
+                        )));
               },
             );
           }
