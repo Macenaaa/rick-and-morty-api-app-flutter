@@ -42,12 +42,13 @@ class _HomeScreenState extends State<HomeScreen> {
               itemBuilder: (context, index) {
                 final character = characters[index];
                 return GestureDetector(
-                    onTap: () {
+                    onTap: () { //cliques 
+                    print("Clicou no personagem: ${character.name}");
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              DetailScreen(),
+                           DetailScreen(character),
                         ),
                       );
                     },
